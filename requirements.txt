@@ -1,0 +1,5 @@
+clinner
+codecov
+boto3
+jinja2
+requests
