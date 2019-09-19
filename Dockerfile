@@ -3,7 +3,7 @@ LABEL maintainer="Perdy <perdy@perdy.io>"
 
 ENV PYTHONPATH=$APPDIR:$PYTHONPATH
 
-ENV BUILD_PACKAGES=curl
+ENV BUILD_PACKAGES="curl build-essential git"
 
 COPY requirements.txt $APPDIR/
 
@@ -21,7 +21,6 @@ RUN apt-get update && \
     python -m pip install --no-cache-dir --upgrade pip poetry && \
     python -m pip install --no-cache-dir -r requirements.txt && \
     # Clean
-    apt-get purge -y --auto-remove $BUILD_PACKAGES && \
     apt-get clean && \
     rm -rf \
         requirements.txt \
