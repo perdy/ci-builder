@@ -3,3 +3,4 @@ codecov
 boto3
 jinja2
 requests
+docker-compose
