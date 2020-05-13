@@ -5,7 +5,7 @@ ENV PYTHONPATH=$APPDIR:$PYTHONPATH
 
 ENV BUILD_PACKAGES="curl build-essential git"
 
-COPY requirements.txt $APPDIR/
+COPY package.json package-lock.json requirements.txt $APPDIR/
 
 RUN apt-get update && \
     apt-get install -y $BUILD_PACKAGES && \
@@ -17,6 +17,11 @@ RUN apt-get update && \
     # Install aws-iam-authenticator
     curl -o /usr/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator && \
     chmod +x /usr/bin/aws-iam-authenticator && \
+    # Install nodejs
+    curl -fsSL https://deb.nodesource.com/setup_12.x | bash && \
+    apt-get install -y nodejs && \
+    # Install node requirements
+    npm i -g --cache=/tmp/npm-cache && \
     # Install python requirements
     python -m pip install --no-cache-dir --upgrade pip poetry && \
     python -m pip install --no-cache-dir -r requirements.txt && \
